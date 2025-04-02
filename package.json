@@ -5,14 +5,11 @@
     "lint": "eslint ./",
     "format": "prettier -w .",
     "build": "esbuild --bundle --platform=node --packages=bundle --legal-comments=external --target=node20 ./src/index.ts --outfile=dist/index.js",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "repository": "https://github.com/trim21/action-uv-lock-diff-viewer.git",
   "author": "Trim21 <trim21.me@gmail.com>",
   "license": "MIT",
-  "engines": {
-    "node": "^20.0.0"
-  },
   "devDependencies": {
     "@actions/core": "^1.11.1",
     "@actions/github": "^6.0.0",

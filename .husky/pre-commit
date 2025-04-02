@@ -1,2 +1,3 @@
 prettier -w .
 pnpm run build
+git diff --exit-code
