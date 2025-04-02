@@ -10,6 +10,10 @@
   "repository": "https://github.com/trim21/action-uv-lock-diff-viewer.git",
   "author": "Trim21 <trim21.me@gmail.com>",
   "license": "MIT",
+  "prettier": {
+    "printWidth": 100,
+    "tabWidth": 2
+  },
   "devDependencies": {
     "@actions/core": "^1.11.1",
     "@actions/github": "^6.0.0",

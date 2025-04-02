@@ -14,8 +14,7 @@ export async function getFile(
   return f.data as string;
 }
 
-const magicComment =
-  "<!-- trim21/action-uv-lock-diff-viewer uv.lock viewer -->";
+const magicComment = "<!-- trim21/action-uv-lock-diff-viewer uv.lock viewer -->\n";
 
 export async function upsertComment(
   octokit: ReturnType<typeof github.getOctokit>,
@@ -37,25 +36,19 @@ export async function upsertComment(
 
   for (const comment of comments) {
     if (comment.body?.includes(magicComment)) {
-      await octokit.request(
-        "PATCH /repos/{owner}/{repo}/issues/comments/{comment_id}",
-        {
-          owner: owner,
-          repo: repo,
-          comment_id: comment.id,
-          body,
-        },
-      );
+      await octokit.request("PATCH /repos/{owner}/{repo}/issues/comments/{comment_id}", {
+        owner: owner,
+        repo: repo,
+        comment_id: comment.id,
+        body,
+      });
     }
     return;
   }
-  await octokit.request(
-    "POST /repos/{owner}/{repo}/issues/{issue_number}/comments",
-    {
-      owner: owner,
-      repo: repo,
-      issue_number: pull_number,
-      body,
-    },
-  );
+  await octokit.request("POST /repos/{owner}/{repo}/issues/{issue_number}/comments", {
+    owner: owner,
+    repo: repo,
+    issue_number: pull_number,
+    body,
+  });
 }

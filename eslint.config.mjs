@@ -70,19 +70,10 @@ export default tsEslint.config(
       "linebreak-style": ["error", "unix"],
       "array-element-newline": ["error", "consistent"],
       "array-bracket-newline": ["error", "consistent"],
-      "@typescript-eslint/restrict-plus-operands": [
-        "error",
-        { skipCompoundAssignments: false },
-      ],
-      "@typescript-eslint/no-floating-promises": [
-        "error",
-        { ignoreVoid: true },
-      ],
+      "@typescript-eslint/restrict-plus-operands": ["error", { skipCompoundAssignments: false }],
+      "@typescript-eslint/no-floating-promises": ["error", { ignoreVoid: true }],
       "@typescript-eslint/object-curly-spacing": ["error", "always"],
-      "@typescript-eslint/consistent-type-imports": [
-        "error",
-        { prefer: "type-imports" },
-      ],
+      "@typescript-eslint/consistent-type-imports": ["error", { prefer: "type-imports" }],
       "@typescript-eslint/prefer-nullish-coalescing": "off",
       "@typescript-eslint/member-delimiter-style": [
         "error",

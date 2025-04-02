@@ -32561,7 +32561,7 @@ async function getFile(octokit, owner, repo, ref, path2) {
   );
   return f2.data;
 }
-var magicComment = "<!-- trim21/action-uv-lock-diff-viewer uv.lock viewer -->";
+var magicComment = "<!-- trim21/action-uv-lock-diff-viewer uv.lock viewer -->\n";
 async function upsertComment(octokit, owner, repo, pull_number, output) {
   const comments = await octokit.paginate(
     "GET /repos/{owner}/{repo}/issues/{issue_number}/comments",
@@ -32574,27 +32574,21 @@ async function upsertComment(octokit, owner, repo, pull_number, output) {
   const body = [magicComment, "\n", ...output].join("\n");
   for (const comment of comments) {
     if (comment.body?.includes(magicComment)) {
-      await octokit.request(
-        "PATCH /repos/{owner}/{repo}/issues/comments/{comment_id}",
-        {
-          owner,
-          repo,
-          comment_id: comment.id,
-          body
-        }
-      );
+      await octokit.request("PATCH /repos/{owner}/{repo}/issues/comments/{comment_id}", {
+        owner,
+        repo,
+        comment_id: comment.id,
+        body
+      });
     }
     return;
   }
-  await octokit.request(
-    "POST /repos/{owner}/{repo}/issues/{issue_number}/comments",
-    {
-      owner,
-      repo,
-      issue_number: pull_number,
-      body
-    }
-  );
+  await octokit.request("POST /repos/{owner}/{repo}/issues/{issue_number}/comments", {
+    owner,
+    repo,
+    issue_number: pull_number,
+    body
+  });
 }
 
 // node_modules/.pnpm/@sinclair+typebox@0.34.32/node_modules/@sinclair/typebox/build/esm/type/guard/value.mjs
@@ -48410,14 +48404,11 @@ async function main() {
   const repo = github.context.repo.repo;
   const pull_number = github.context.payload.pull_request.number;
   const pr2 = await octokit.rest.pulls.get({ owner, repo, pull_number });
-  const files = await octokit.paginate(
-    "GET /repos/{owner}/{repo}/pulls/{pull_number}/files",
-    {
-      owner,
-      repo,
-      pull_number
-    }
-  );
+  const files = await octokit.paginate("GET /repos/{owner}/{repo}/pulls/{pull_number}/files", {
+    owner,
+    repo,
+    pull_number
+  });
   const finalOutput = [];
   for (const file of files) {
     for (const [pattern, diff] of Object.entries(lockFileMap)) {

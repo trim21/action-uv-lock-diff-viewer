@@ -5,10 +5,7 @@ import { getFile, upsertComment } from "./github";
 
 import * as uv from "./uv";
 
-const lockFileMap: Record<
-  string,
-  (oldLock: string, newLock: string) => string[]
-> = {
+const lockFileMap: Record<string, (oldLock: string, newLock: string) => string[]> = {
   "**/uv.lock": uv.diffLockFile,
 };
 
@@ -16,9 +13,7 @@ async function main() {
   const token = core.getInput("token") || process.env.GITHUB_TOKEN;
   const octokit = github.getOctokit(token);
 
-  if (
-    !["pull_request", "pull_request_target"].indexOf(github.context.eventName)
-  ) {
+  if (!["pull_request", "pull_request_target"].indexOf(github.context.eventName)) {
     return;
   }
 
@@ -28,14 +23,11 @@ async function main() {
 
   const pr = await octokit.rest.pulls.get({ owner, repo, pull_number });
 
-  const files = await octokit.paginate(
-    "GET /repos/{owner}/{repo}/pulls/{pull_number}/files",
-    {
-      owner: owner,
-      repo: repo,
-      pull_number,
-    },
-  );
+  const files = await octokit.paginate("GET /repos/{owner}/{repo}/pulls/{pull_number}/files", {
+    owner: owner,
+    repo: repo,
+    pull_number,
+  });
 
   const finalOutput = [];
 
