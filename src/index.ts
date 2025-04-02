@@ -1,15 +1,15 @@
 import * as github from "@actions/github";
 import * as core from "@actions/core";
-import { Type as t } from "@sinclair/typebox";
-import { Value } from "@sinclair/typebox/value";
-import * as toml from "js-toml";
+import { minimatch } from 'minimatch'
+import { getFile, upsertComment } from "./github";
 
-const LockFile = t.Object({
-  package: t.Array(t.Object({ name: t.String(), version: t.String() })),
-});
+import * as uv from "./uv";
+
+const lockFileMap = {
+  '**/uv.lock': uv,
+}
 
 async function main() {
-  const file = core.getInput("file") || "uv.lock";
   const token = core.getInput("token") || process.env.GITHUB_TOKEN;
   const octokit = github.getOctokit(token);
 
@@ -25,110 +25,46 @@ async function main() {
 
   const pr = await octokit.rest.pulls.get({ owner, repo, pull_number });
 
-  const oldPackages = await getPackages(
-    octokit,
-    pr.data.base.repo.owner.login,
-    pr.data.base.repo.name,
-    pr.data.base.ref,
-    file,
-  );
-  const newPackages = await getPackages(
-    octokit,
-    pr.data.head.repo.owner.login,
-    pr.data.head.repo.name,
-    pr.data.head.ref,
-    file,
-  );
+  const files = await octokit.paginate('GET /repos/{owner}/{repo}/pulls/{pull_number}/files', {
+    owner: owner,
+    repo: repo,
+    pull_number,
+  })
 
-  const packages: Array<{
-    package: string;
-    oldVersion: undefined | string;
-    newVersion: undefined | string;
-  }> = [];
+  const finalOutput = []
 
-  for (const pkg of new Set([...oldPackages.keys(), ...newPackages.keys()])) {
-    const oldVersion = oldPackages.get(pkg);
-    const newVersion = newPackages.get(pkg);
-    if (newVersion === oldVersion) {
-      continue;
-    }
+  for (const file of files) {
+    for (const [pattern, impl] of Object.entries(lockFileMap)) {
+      if (!minimatch(file.filename, pattern)) {
+        continue
+      }
 
-    packages.push({ package: pkg, oldVersion, newVersion });
-  }
-
-  packages.sort((a, b) => a.package.localeCompare(b.package));
-
-  const output = ["| package | old | new |", "|   :-:   | :-: | :-: |"];
-
-  for (const { package: pkg, oldVersion, newVersion } of packages) {
-    output.push(`| ${pkg} | ${oldVersion || ""} | ${newVersion || ""} |`);
-  }
-
-  await upsertComment(octokit, owner, repo, pull_number, output);
-}
-
-const magicComment =
-  "<!-- trim21/action-uv-lock-diff-viewer uv.lock viewer -->";
-
-async function upsertComment(
-  octokit: ReturnType<typeof github.getOctokit>,
-  owner: string,
-  repo: string,
-  pull_number: number,
-  output: string[],
-) {
-  const comments = await octokit.paginate(
-    "GET /repos/{owner}/{repo}/issues/{issue_number}/comments",
-    {
-      owner: owner,
-      repo: repo,
-      issue_number: pull_number,
-    },
-  );
-
-  const body = [magicComment, "\n", ...output].join("\n");
-
-  for (const comment of comments) {
-    if (comment.body?.includes(magicComment)) {
-      await octokit.request(
-        "PATCH /repos/{owner}/{repo}/issues/comments/{comment_id}",
-        {
-          owner: owner,
-          repo: repo,
-          comment_id: comment.id,
-          body,
-        },
+      const oldLock = await getFile(
+        octokit,
+        pr.data.base.repo.owner.login,
+        pr.data.base.repo.name,
+        pr.data.base.ref,
+        file.filename,
       );
+      const newLock = await getFile(
+        octokit,
+        pr.data.head.repo.owner.login,
+        pr.data.head.repo.name,
+        pr.data.head.ref,
+        file.filename,
+      );
+
+      const output = uv.diffLockFile(oldLock, newLock);
+
+      finalOutput.push(`## ${file.filename}`, '', ...output)
     }
-    return;
   }
-  await octokit.request(
-    "POST /repos/{owner}/{repo}/issues/{issue_number}/comments",
-    {
-      owner: owner,
-      repo: repo,
-      issue_number: pull_number,
-      body,
-    },
-  );
-}
 
-async function getPackages(
-  octokit: ReturnType<typeof github.getOctokit>,
-  owner: string,
-  repo: string,
-  ref: string,
-  path: string,
-): Promise<Map<string, string>> {
-  const f = await octokit.request(
-    `GET https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${path}`,
-  );
+  if (!finalOutput.length) {
+    return
+  }
 
-  const lock = toml.load(f.data);
-
-  const packages = Value.Parse(LockFile, lock).package;
-
-  return new Map(packages.map(({ name, version }) => [name, version]));
+  await upsertComment(octokit, owner, repo, pull_number, finalOutput);
 }
 
 main().catch((error) => {

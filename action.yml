@@ -5,10 +5,6 @@ branding:
   icon: chevron-down
   color: blue
 inputs:
-  file:
-    description: "uv.lock file path"
-    default: "uv.lock"
-    required: false
   token:
     description: "github token"
     default: "${{ github.token }}"
