@@ -4,6 +4,7 @@
   "scripts": {
     "lint": "eslint ./",
     "format": "prettier -w .",
+    "format:check": "prettier --check .",
     "build": "esbuild --bundle --platform=node --packages=bundle --legal-comments=external --target=node20 ./src/index.ts --outfile=dist/index.js",
     "prepare": "husky"
   },
