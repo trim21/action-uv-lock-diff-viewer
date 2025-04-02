@@ -1,0 +1,57 @@
+name: deploy
+
+on:
+  push:
+    tags:
+      - "v2*"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      NODE_VERSION: "20"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - run: pnpm i
+
+      - run: pnpm run build
+
+      - run: |
+          mkdir dist/dist
+          mv dist/index.js dist/dist/index.js
+          cp action.yml dist
+
+      - run: echo "TAG=v$(cat package.json | jq .version -r)" >> $GITHUB_ENV
+
+      - name: Generate Changelog
+        id: changelog
+        uses: requarks/changelog-action@v1.10.2
+        with:
+          token: ${{ github.token }}
+          tag: ${{ github.ref_name }}
+          writeToFile: false
+          restrictToTypes: feat,fix,revert
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          commit_message: deploy ${{ github.ref }}
+          publish_branch: dist/v2
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com
+          tag_name: dist/${{ env.TAG }}
+          tag_message: "release ${{ github.ref_name }}"
+
+      - run: gh release create "dist/${TAG}" --notes "${CHANGELOG}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CHANGELOG: "${{ steps.changelog.outputs.changes }}"
