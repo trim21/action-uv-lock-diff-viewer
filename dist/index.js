@@ -48419,14 +48419,14 @@ async function main() {
         octokit,
         pr2.data.base.repo.owner.login,
         pr2.data.base.repo.name,
-        pr2.data.base.ref,
+        pr2.data.base.sha,
         file.filename
       );
       const newLock = await getFile(
         octokit,
         pr2.data.head.repo.owner.login,
         pr2.data.head.repo.name,
-        pr2.data.head.ref,
+        pr2.data.head.sha,
         file.filename
       );
       const output = diff(oldLock, newLock);

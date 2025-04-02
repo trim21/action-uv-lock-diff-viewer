@@ -41,14 +41,14 @@ async function main() {
         octokit,
         pr.data.base.repo.owner.login,
         pr.data.base.repo.name,
-        pr.data.base.ref,
+        pr.data.base.sha,
         file.filename,
       );
       const newLock = await getFile(
         octokit,
         pr.data.head.repo.owner.login,
         pr.data.head.repo.name,
-        pr.data.head.ref,
+        pr.data.head.sha,
         file.filename,
       );
 
