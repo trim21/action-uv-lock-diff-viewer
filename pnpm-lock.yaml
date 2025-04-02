@@ -19,7 +19,7 @@ importers:
         version: 9.22.0
       '@sinclair/typebox':
         specifier: ^0.34.31
-        version: 0.34.32
+        version: 0.34.33
       '@types/node':
         specifier: ^20.0.0
         version: 20.17.30
@@ -395,8 +395,8 @@ packages:
   '@octokit/types@13.10.0':
     resolution: {integrity: sha512-ifLaO34EbbPj0Xgro4G5lP5asESjwHracYJvVaPIyXMuiuXLlhic3S47cBdTb+jfODkTE5YtGCLt3Ay3+J97sA==}
 
-  '@sinclair/typebox@0.34.32':
-    resolution: {integrity: sha512-YDTfBzBE0wmBvzM4s0RtsZndTvoGGxOrb13U0g0nBVhNscy+tLca6xzDueePTWfsMKIQdoh/78lHesML2vHkXQ==}
+  '@sinclair/typebox@0.34.33':
+    resolution: {integrity: sha512-5HAV9exOMcXRUxo+9iYB5n09XxzCXnfy4VTNW4xnDv+FgjzAGY989C28BIdljKqmF+ZltUwujE3aossvcVtq6g==}
 
   '@types/estree@1.0.7':
     resolution: {integrity: sha512-w28IoSUCJpidD/TGviZwwMJckNESJZXFu7NBZ5YJ4mEUnNraUn9Pm8HSZm/jDF1pDWYKspWE7oVphigUPRakIQ==}
@@ -1423,7 +1423,7 @@ snapshots:
     dependencies:
       '@octokit/openapi-types': 24.2.0
 
-  '@sinclair/typebox@0.34.32': {}
+  '@sinclair/typebox@0.34.33': {}
 
   '@types/estree@1.0.7': {}
 
