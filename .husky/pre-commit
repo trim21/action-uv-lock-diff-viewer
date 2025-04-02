@@ -1,0 +1,2 @@
+prettier -w .
+pnpm run build

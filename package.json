@@ -4,12 +4,15 @@
   "scripts": {
     "lint": "eslint ./",
     "format": "prettier -w .",
-    "build": "esbuild --bundle --platform=node --packages=bundle --legal-comments=external --target=node20 ./src/index.ts --outfile=dist/index.js"
+    "build": "esbuild --bundle --platform=node --packages=bundle --legal-comments=external --target=node20 ./src/index.ts --outfile=dist/index.js",
+    "prepare": "husky install"
   },
   "repository": "https://github.com/trim21/action-uv-lock-diff-viewer.git",
   "author": "Trim21 <trim21.me@gmail.com>",
   "license": "MIT",
-  "packageManager": "yarn@4.8.1",
+  "engines": {
+    "node": "^20.0.0"
+  },
   "devDependencies": {
     "@actions/core": "^1.11.1",
     "@actions/github": "^6.0.0",
@@ -26,12 +29,12 @@
     "eslint-plugin-tsdoc": "0.4.0",
     "eslint-plugin-unicorn": "56.0.1",
     "eslint-plugin-unused-imports": "4.1.4",
+    "husky": "^9.1.7",
     "js-toml": "^1.0.1",
+    "minimatch": "^10.0.1",
     "prettier": "^3.5.3",
     "typescript": "^5.8.2",
     "typescript-eslint": "8.27.0"
   },
-  "dependencies": {
-    "minimatch": "^10.0.1"
-  }
+  "packageManager": "pnpm@10.6.5+sha512.cdf928fca20832cd59ec53826492b7dc25dc524d4370b6b4adbf65803d32efaa6c1c88147c0ae4e8d579a6c9eec715757b50d4fa35eea179d868eada4ed043af"
 }
