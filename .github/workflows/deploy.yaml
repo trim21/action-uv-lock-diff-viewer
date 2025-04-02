@@ -8,6 +8,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     env:
       NODE_VERSION: "20"
     steps:
@@ -45,7 +47,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
           commit_message: deploy ${{ github.ref }}
-          publish_branch: dist/v2
+          publish_branch: dist/v0
           user_name: github-actions[bot]
           user_email: github-actions[bot]@users.noreply.github.com
           tag_name: dist/${{ env.TAG }}
