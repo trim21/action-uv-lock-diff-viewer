@@ -31012,7 +31012,7 @@ var require_lib2 = __commonJS({
   }
 });
 
-// index.ts
+// src/index.ts
 var github = __toESM(require_github());
 var core = __toESM(require_core());
 
@@ -46786,7 +46786,7 @@ var ze = (r) => {
   return We.visit(t);
 };
 
-// index.ts
+// src/index.ts
 var LockFile = Type.Object({
   package: Type.Array(Type.Object({ name: Type.String(), version: Type.String() }))
 });
@@ -46801,8 +46801,20 @@ async function main() {
   const repo = github.context.repo.repo;
   const pull_number = github.context.payload.pull_request.number;
   const pr2 = await octokit.rest.pulls.get({ owner, repo, pull_number });
-  const oldPackages = await getPackages(octokit, pr2.data.base.repo.owner.login, pr2.data.base.repo.name, pr2.data.base.ref, file);
-  const newPackages = await getPackages(octokit, pr2.data.head.repo.owner.login, pr2.data.head.repo.name, pr2.data.head.ref, file);
+  const oldPackages = await getPackages(
+    octokit,
+    pr2.data.base.repo.owner.login,
+    pr2.data.base.repo.name,
+    pr2.data.base.ref,
+    file
+  );
+  const newPackages = await getPackages(
+    octokit,
+    pr2.data.head.repo.owner.login,
+    pr2.data.head.repo.name,
+    pr2.data.head.ref,
+    file
+  );
   const packages = [];
   for (const pkg of /* @__PURE__ */ new Set([...oldPackages.keys(), ...newPackages.keys()])) {
     const oldVersion = oldPackages.get(pkg);
@@ -46813,15 +46825,11 @@ async function main() {
     packages.push({ package: pkg, oldVersion, newVersion });
   }
   packages.sort((a, b2) => a.package.localeCompare(b2.package));
-  let output = [
-    "| package | old | new |",
-    "|   :-:   | :-: | :-: |"
-  ];
+  const output = ["| package | old | new |", "|   :-:   | :-: | :-: |"];
   for (const { package: pkg, oldVersion, newVersion } of packages) {
     output.push(`| ${pkg} | ${oldVersion || ""} | ${newVersion || ""} |`);
   }
-  console.log(output.join("\n"));
-  upsertComment(octokit, owner, repo, pull_number, output);
+  await upsertComment(octokit, owner, repo, pull_number, output);
 }
 var magicComment = "<!-- trim21/action-uv-lock-diff-viewer uv.lock viewer -->";
 async function upsertComment(octokit, owner, repo, pull_number, output) {
@@ -46836,21 +46844,27 @@ async function upsertComment(octokit, owner, repo, pull_number, output) {
   const body = [magicComment, "\n", ...output].join("\n");
   for (const comment of comments) {
     if (comment.body?.includes(magicComment)) {
-      await octokit.request("PATCH /repos/{owner}/{repo}/issues/comments/{comment_id}", {
-        owner,
-        repo,
-        comment_id: comment.id,
-        body
-      });
+      await octokit.request(
+        "PATCH /repos/{owner}/{repo}/issues/comments/{comment_id}",
+        {
+          owner,
+          repo,
+          comment_id: comment.id,
+          body
+        }
+      );
     }
     return;
   }
-  await octokit.request("POST /repos/{owner}/{repo}/issues/{issue_number}/comments", {
-    owner,
-    repo,
-    issue_number: pull_number,
-    body
-  });
+  await octokit.request(
+    "POST /repos/{owner}/{repo}/issues/{issue_number}/comments",
+    {
+      owner,
+      repo,
+      issue_number: pull_number,
+      body
+    }
+  );
 }
 async function getPackages(octokit, owner, repo, ref, path) {
   const f2 = await octokit.request(
@@ -46858,10 +46872,8 @@ async function getPackages(octokit, owner, repo, ref, path) {
   );
   const lock = ze(f2.data);
   const packages = value_exports2.Parse(LockFile, lock).package;
-  return new Map(
-    packages.map(({ name, version }) => [name, version])
-  );
+  return new Map(packages.map(({ name, version }) => [name, version]));
 }
-main().catch((err) => {
-  throw err;
+main().catch((error) => {
+  throw error;
 });
