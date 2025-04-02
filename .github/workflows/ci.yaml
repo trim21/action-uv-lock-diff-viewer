@@ -7,7 +7,6 @@ on:
   push:
     branches:
       - master
-      - "dist/*"
 
 concurrency:
   cancel-in-progress: true
