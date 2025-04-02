@@ -1,6 +1,6 @@
 {
   "name": "action-uv-lock-diff-viewer",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "scripts": {
     "lint": "eslint ./",
     "format": "prettier -w .",
