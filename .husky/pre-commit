@@ -1,3 +1,4 @@
 prettier -w .
 pnpm run build
 git diff --name-only --exit-code
+pnpm run lint

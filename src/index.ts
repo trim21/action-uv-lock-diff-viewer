@@ -29,7 +29,7 @@ async function main() {
     pull_number,
   });
 
-  const finalOutput = [];
+  const finalOutput: string[] = [];
 
   for (const file of files) {
     for (const [pattern, diff] of Object.entries(lockFileMap)) {
@@ -57,7 +57,7 @@ async function main() {
     }
   }
 
-  if (!finalOutput.length) {
+  if (finalOutput.length === 0) {
     return;
   }
 

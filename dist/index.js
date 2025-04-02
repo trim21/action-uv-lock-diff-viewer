@@ -48433,7 +48433,7 @@ async function main() {
       finalOutput.push(`## ${file.filename}`, "", ...output);
     }
   }
-  if (!finalOutput.length) {
+  if (finalOutput.length === 0) {
     return;
   }
   await upsertComment(octokit, owner, repo, pull_number, finalOutput);
