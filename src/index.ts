@@ -1,13 +1,16 @@
 import * as github from "@actions/github";
 import * as core from "@actions/core";
-import { minimatch } from 'minimatch'
+import { minimatch } from "minimatch";
 import { getFile, upsertComment } from "./github";
 
 import * as uv from "./uv";
 
-const lockFileMap = {
-  '**/uv.lock': uv,
-}
+const lockFileMap: Record<
+  string,
+  (oldLock: string, newLock: string) => string[]
+> = {
+  "**/uv.lock": uv.diffLockFile,
+};
 
 async function main() {
   const token = core.getInput("token") || process.env.GITHUB_TOKEN;
@@ -25,18 +28,21 @@ async function main() {
 
   const pr = await octokit.rest.pulls.get({ owner, repo, pull_number });
 
-  const files = await octokit.paginate('GET /repos/{owner}/{repo}/pulls/{pull_number}/files', {
-    owner: owner,
-    repo: repo,
-    pull_number,
-  })
+  const files = await octokit.paginate(
+    "GET /repos/{owner}/{repo}/pulls/{pull_number}/files",
+    {
+      owner: owner,
+      repo: repo,
+      pull_number,
+    },
+  );
 
-  const finalOutput = []
+  const finalOutput = [];
 
   for (const file of files) {
-    for (const [pattern, impl] of Object.entries(lockFileMap)) {
+    for (const [pattern, diff] of Object.entries(lockFileMap)) {
       if (!minimatch(file.filename, pattern)) {
-        continue
+        continue;
       }
 
       const oldLock = await getFile(
@@ -54,14 +60,13 @@ async function main() {
         file.filename,
       );
 
-      const output = uv.diffLockFile(oldLock, newLock);
-
-      finalOutput.push(`## ${file.filename}`, '', ...output)
+      const output = diff(oldLock, newLock);
+      finalOutput.push(`## ${file.filename}`, "", ...output);
     }
   }
 
   if (!finalOutput.length) {
-    return
+    return;
   }
 
   await upsertComment(octokit, owner, repo, pull_number, finalOutput);

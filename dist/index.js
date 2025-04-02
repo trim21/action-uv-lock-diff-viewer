@@ -32597,12 +32597,6 @@ async function upsertComment(octokit, owner, repo, pull_number, output) {
   );
 }
 
-// src/uv.ts
-var uv_exports = {};
-__export(uv_exports, {
-  diffLockFile: () => diffLockFile
-});
-
 // node_modules/@sinclair/typebox/build/esm/type/guard/value.mjs
 var value_exports = {};
 __export(value_exports, {
@@ -48404,7 +48398,7 @@ function diffLockFile(oldLock, newLock) {
 
 // src/index.ts
 var lockFileMap = {
-  "**/uv.lock": uv_exports
+  "**/uv.lock": diffLockFile
 };
 async function main() {
   const token = core.getInput("token") || process.env.GITHUB_TOKEN;
@@ -48416,14 +48410,17 @@ async function main() {
   const repo = github.context.repo.repo;
   const pull_number = github.context.payload.pull_request.number;
   const pr2 = await octokit.rest.pulls.get({ owner, repo, pull_number });
-  const files = await octokit.paginate("GET /repos/{owner}/{repo}/pulls/{pull_number}/files", {
-    owner,
-    repo,
-    pull_number
-  });
+  const files = await octokit.paginate(
+    "GET /repos/{owner}/{repo}/pulls/{pull_number}/files",
+    {
+      owner,
+      repo,
+      pull_number
+    }
+  );
   const finalOutput = [];
   for (const file of files) {
-    for (const [pattern, impl] of Object.entries(lockFileMap)) {
+    for (const [pattern, diff] of Object.entries(lockFileMap)) {
       if (!minimatch(file.filename, pattern)) {
         continue;
       }
@@ -48441,7 +48438,7 @@ async function main() {
         pr2.data.head.ref,
         file.filename
       );
-      const output = diffLockFile(oldLock, newLock);
+      const output = diff(oldLock, newLock);
       finalOutput.push(`## ${file.filename}`, "", ...output);
     }
   }
