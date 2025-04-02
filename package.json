@@ -1,0 +1,21 @@
+{
+  "name": "action-uv-lock-diff-viewer",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "esbuild --bundle --platform=node --packages=bundle --legal-comments=external --target=node20 ./index.ts --outfile=dist/index.js"
+  },
+  "repository": "https://github.com/trim21/action-uv-lock-diff-viewer.git",
+  "author": "Trim21 <trim21.me@gmail.com>",
+  "license": "MIT",
+  "packageManager": "yarn@4.8.1",
+  "devDependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/github": "^6.0.0",
+    "@sinclair/typebox": "^0.34.31",
+    "@types/node": "^20.0.0",
+    "esbuild": "^0.25.2",
+    "js-toml": "^1.0.1",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.2"
+  }
+}
