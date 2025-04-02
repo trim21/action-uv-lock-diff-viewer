@@ -14,7 +14,7 @@ export async function getFile(
   return f.data as string;
 }
 
-const magicComment = "<!-- trim21/action-uv-lock-diff-viewer uv.lock viewer -->\n";
+const magicComment = "<!-- trim21/action-uv-lock-diff-viewer uv.lock viewer -->";
 
 export async function upsertComment(
   octokit: ReturnType<typeof github.getOctokit>,

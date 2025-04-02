@@ -32561,7 +32561,7 @@ async function getFile(octokit, owner, repo, ref, path2) {
   );
   return f2.data;
 }
-var magicComment = "<!-- trim21/action-uv-lock-diff-viewer uv.lock viewer -->\n";
+var magicComment = "<!-- trim21/action-uv-lock-diff-viewer uv.lock viewer -->";
 async function upsertComment(octokit, owner, repo, pull_number, output) {
   const comments = await octokit.paginate(
     "GET /repos/{owner}/{repo}/issues/{issue_number}/comments",
