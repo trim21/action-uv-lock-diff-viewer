@@ -1,0 +1,19 @@
+name: "setup/install python poetry"
+description: "install poetry on you OS"
+author: "Trim21 <trim21.me@gmail.com>"
+branding:
+  icon: chevron-down
+  color: blue
+inputs:
+  file:
+    description: "uv.lock file path"
+    default: "uv.lock"
+    required: false
+  token:
+    description: "github token"
+    default: "${{ github.token }}"
+    required: false
+
+runs:
+  using: "node20"
+  main: "dist/index.js"
