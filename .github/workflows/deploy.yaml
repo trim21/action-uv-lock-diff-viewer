@@ -13,10 +13,10 @@ jobs:
     env:
       NODE_VERSION: "20"
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
@@ -34,7 +34,7 @@ jobs:
 
       - name: Generate Changelog
         id: changelog
-        uses: requarks/changelog-action@v1.10.2
+        uses: requarks/changelog-action@6d71e098526ee17bae963f058d34cd763378337f # v1.10.2
         with:
           token: ${{ github.token }}
           tag: ${{ github.ref_name }}
@@ -42,7 +42,7 @@ jobs:
           restrictToTypes: feat,fix,revert
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4
+        uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e # v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
