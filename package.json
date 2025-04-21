@@ -22,7 +22,7 @@
     "@sinclair/typebox": "^0.34.31",
     "@types/node": "^20.0.0",
     "esbuild": "^0.25.2",
-    "eslint": "9.25.0",
+    "eslint": "9.25.1",
     "eslint-config-prettier": "10.1.2",
     "eslint-plugin-jest": "28.11.0",
     "eslint-plugin-promise": "7.2.1",
