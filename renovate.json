@@ -1,4 +1,9 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["local>trim21/renovate-config"]
+  "extends": [
+    "local>trim21/renovate-config",
+    "local>trim21/renovate-config:app",
+    "local>trim21/renovate-config:monthly",
+    "helpers:disableTypesNodeMajor"
+  ]
 }
