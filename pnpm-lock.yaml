@@ -9,22 +9,22 @@ importers:
   .:
     devDependencies:
       '@actions/core':
-        specifier: ^1.11.1
+        specifier: 1.11.1
         version: 1.11.1
       '@actions/github':
-        specifier: ^6.0.0
+        specifier: 6.0.0
         version: 6.0.0
       '@eslint/js':
         specifier: 9.25.1
         version: 9.25.1
       '@sinclair/typebox':
-        specifier: ^0.34.31
+        specifier: 0.34.33
         version: 0.34.33
       '@types/node':
-        specifier: ^20.0.0
+        specifier: 20.17.30
         version: 20.17.30
       esbuild:
-        specifier: ^0.25.2
+        specifier: 0.25.2
         version: 0.25.2
       eslint:
         specifier: 9.25.1
@@ -51,19 +51,19 @@ importers:
         specifier: 4.1.4
         version: 4.1.4(@typescript-eslint/eslint-plugin@8.31.0(@typescript-eslint/parser@8.31.0(eslint@9.25.1)(typescript@5.8.3))(eslint@9.25.1)(typescript@5.8.3))(eslint@9.25.1)
       husky:
-        specifier: ^9.1.7
+        specifier: 9.1.7
         version: 9.1.7
       js-toml:
-        specifier: ^1.0.1
+        specifier: 1.0.1
         version: 1.0.1
       minimatch:
-        specifier: ^10.0.1
+        specifier: 10.0.1
         version: 10.0.1
       prettier:
-        specifier: ^3.5.3
+        specifier: 3.5.3
         version: 3.5.3
       typescript:
-        specifier: ^5.8.2
+        specifier: 5.8.3
         version: 5.8.3
       typescript-eslint:
         specifier: 8.31.0
