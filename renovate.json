@@ -5,5 +5,8 @@
     "local>trim21/renovate-config:app",
     "local>trim21/renovate-config:monthly",
     "helpers:disableTypesNodeMajor"
-  ]
+  ],
+  "lockFileMaintenance": {
+    "automerge": true
+  }
 }
