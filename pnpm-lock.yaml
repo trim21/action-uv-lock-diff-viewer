@@ -17,9 +17,6 @@ importers:
       '@eslint/js':
         specifier: 9.39.1
         version: 9.39.1
-      '@sinclair/typebox':
-        specifier: 0.34.41
-        version: 0.34.41
       '@types/node':
         specifier: 20.19.24
         version: 20.19.24
@@ -62,6 +59,9 @@ importers:
       prettier:
         specifier: 3.7.4
         version: 3.7.4
+      typebox:
+        specifier: ^1.0.0
+        version: 1.0.0
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -399,9 +399,6 @@ packages:
 
   '@octokit/types@13.10.0':
     resolution: {integrity: sha512-ifLaO34EbbPj0Xgro4G5lP5asESjwHracYJvVaPIyXMuiuXLlhic3S47cBdTb+jfODkTE5YtGCLt3Ay3+J97sA==}
-
-  '@sinclair/typebox@0.34.41':
-    resolution: {integrity: sha512-6gS8pZzSXdyRHTIqoqSVknxolr1kzfy4/CeDnrzsVz8TTIWUbOBr6gnzOmTYJ3eXQNh4IYHIGi5aIL7sOZ2G/g==}
 
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
@@ -1108,6 +1105,9 @@ packages:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
     engines: {node: '>= 0.8.0'}
 
+  typebox@1.0.0:
+    resolution: {integrity: sha512-08rm11GDrCvQUIS0WB6uDBlVF9Z/d0dLy4HJpNcNPw1yr6rlk2UoBijQBVOsFY7Ylz1cPcmZI1C5bv60QiZ6Gw==}
+
   typescript-eslint@8.51.0:
     resolution: {integrity: sha512-jh8ZuM5oEh2PSdyQG9YAEM1TCGuWenLSuSUhf/irbVUNW9O5FhbFVONviN2TgMTBnUmyHv7E56rYnfLZK6TkiA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
@@ -1435,8 +1435,6 @@ snapshots:
   '@octokit/types@13.10.0':
     dependencies:
       '@octokit/openapi-types': 24.2.0
-
-  '@sinclair/typebox@0.34.41': {}
 
   '@types/estree@1.0.8': {}
 
@@ -2182,6 +2180,8 @@ snapshots:
   type-check@0.4.0:
     dependencies:
       prelude-ls: 1.2.1
+
+  typebox@1.0.0: {}
 
   typescript-eslint@8.51.0(eslint@9.39.1)(typescript@5.9.3):
     dependencies:

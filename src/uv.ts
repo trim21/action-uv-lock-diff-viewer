@@ -1,5 +1,5 @@
-import { Type as t } from "@sinclair/typebox";
-import { Value } from "@sinclair/typebox/value";
+import { Type as t } from "typebox";
+import { Value } from "typebox/value";
 import * as toml from "js-toml";
 
 const LockFile = t.Object({
