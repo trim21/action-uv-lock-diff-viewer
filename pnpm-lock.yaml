@@ -60,7 +60,7 @@ importers:
         specifier: 3.7.4
         version: 3.7.4
       typebox:
-        specifier: ^1.0.0
+        specifier: 1.0.0
         version: 1.0.0
       typescript:
         specifier: 5.9.3
