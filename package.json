@@ -16,7 +16,7 @@
     "tabWidth": 2
   },
   "devDependencies": {
-    "@actions/core": "2.0.1",
+    "@actions/core": "2.0.3",
     "@actions/github": "9.0.0",
     "@eslint/js": "9.39.2",
     "typebox": "1.0.71",
