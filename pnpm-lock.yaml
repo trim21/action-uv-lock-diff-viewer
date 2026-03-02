@@ -51,8 +51,8 @@ importers:
         specifier: 9.1.7
         version: 9.1.7
       js-toml:
-        specifier: 1.0.2
-        version: 1.0.2
+        specifier: 1.0.3
+        version: 1.0.3
       minimatch:
         specifier: 10.2.3
         version: 10.2.3
@@ -816,8 +816,8 @@ packages:
   jju@1.4.0:
     resolution: {integrity: sha512-8wb9Yw966OSxApiCt0K3yNJL8pnNeIv+OEq2YMidz4FKP6nonSRoOXc80iXY4JaN2FC11B9qsNmDsm+ZOfMROA==}
 
-  js-toml@1.0.2:
-    resolution: {integrity: sha512-/7IQ//bzn2a/5IDazPUNzlW7bsjxS51cxciYZDR+Z+3Le60yzT0YfI8KOWqTtBcZkXXVklhWd2OuGd8ZksB0wQ==}
+  js-toml@1.0.3:
+    resolution: {integrity: sha512-sgyRKshBUSPIlUrbVXYQHReVZUXKHTldaW+Fj7KSan21vgnmMpuAAo00rBvm7W4HQrvZSvv186wNHlIjMPYC/A==}
 
   js-yaml@4.1.1:
     resolution: {integrity: sha512-qQKT4zQxXl8lLwBtHMWwaTcGfFOZviOJet3Oy/xmGk2gZH677CJM9EvtfdSkgWcATZhj/55JZ0rmy3myCT5lsA==}
@@ -1803,7 +1803,7 @@ snapshots:
 
   jju@1.4.0: {}
 
-  js-toml@1.0.2:
+  js-toml@1.0.3:
     dependencies:
       chevrotain: 11.1.1
       xregexp: 5.1.2
