@@ -19,7 +19,7 @@
     "@actions/core": "3.0.0",
     "@actions/github": "9.0.0",
     "@eslint/js": "10.0.1",
-    "typebox": "1.1.5",
+    "typebox": "1.1.14",
     "@types/node": "20.19.37",
     "esbuild": "0.27.7",
     "eslint": "10.0.2",
