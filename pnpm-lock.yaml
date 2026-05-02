@@ -60,8 +60,8 @@ importers:
         specifier: 3.8.3
         version: 3.8.3
       typebox:
-        specifier: 1.1.14
-        version: 1.1.14
+        specifier: 1.1.37
+        version: 1.1.37
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -971,8 +971,8 @@ packages:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
     engines: {node: '>= 0.8.0'}
 
-  typebox@1.1.14:
-    resolution: {integrity: sha512-R9qoa9IE8Yevoy06ixre1VkribJwOl1wj5fq60gUK6Qxkd2Cw+omHEaHnJh+uE4ewMjLWweR3RERKvhjEtLWsA==}
+  typebox@1.1.37:
+    resolution: {integrity: sha512-jb7jp6KvOvvy5sd+11AfJ0/e0F0AS9RcOXd55oGi2ZnRHIGmFvrTaNF+ZidRmGBmmNTkM5KKl0Z37KzxJ+owEQ==}
 
   typescript-eslint@8.58.0:
     resolution: {integrity: sha512-e2TQzKfaI85fO+F3QywtX+tCTsu/D3WW5LVU6nz8hTFKFZ8yBJ6mSYRpXqdR3mFjPWmO0eWsTa5f+UpAOe/FMA==}
@@ -1899,7 +1899,7 @@ snapshots:
     dependencies:
       prelude-ls: 1.2.1
 
-  typebox@1.1.14: {}
+  typebox@1.1.37: {}
 
   typescript-eslint@8.58.0(eslint@10.1.0)(typescript@5.9.3):
     dependencies:
