@@ -127,6 +127,7 @@ export default tsEslint.config(
   {
     files: ["*.js", "*.mjs"],
     rules: {
+      "@typescript-eslint/no-unsafe-assignment": "off",
       "@typescript-eslint/no-unsafe-argument": "off",
       "@typescript-eslint/no-unsafe-member-access": "off",
     },
