@@ -1,10 +1,17 @@
 Bundled license information:
 
-undici/lib/fetch/body.js:
+undici/lib/web/fetch/body.js:
   /*! formdata-polyfill. MIT License. Jimmy Wärting <https://jimmy.warting.se/opensource> */
 
-undici/lib/websocket/frame.js:
+undici/lib/web/websocket/frame.js:
   /*! ws. MIT License. Einar Otto Stangvik <einaros@gmail.com> */
+
+content-type/dist/index.js:
+  /*!
+   * content-type
+   * Copyright(c) 2015 Douglas Christopher Wilson
+   * MIT Licensed
+   */
 
 xregexp/lib/xregexp.js:
   /*!
@@ -58,13 +65,9 @@ xregexp/lib/addons/unicode-scripts.js:
    * Unicode data by Mathias Bynens <mathiasbynens.be>
    */
 
-lodash-es/lodash.js:
-  /**
-   * @license
-   * Lodash (Custom Build) <https://lodash.com/>
-   * Build: `lodash modularize exports="es" -o ./`
-   * Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
-   * Released under MIT license <https://lodash.com/license>
-   * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-   * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-   */
+@octokit/request-error/dist-src/index.js:
+  /* v8 ignore else -- @preserve -- Bug with vitest coverage where it sees an else branch that doesn't exist */
+
+@octokit/request/dist-bundle/index.js:
+  /* v8 ignore next -- @preserve */
+  /* v8 ignore else -- @preserve */
