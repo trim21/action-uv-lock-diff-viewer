@@ -1,3 +1,3 @@
-prettier -w .
-git diff --name-only --exit-code
+prettier -w --ignore-unknown
+git diff --exit-code
 pnpm run lint

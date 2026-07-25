@@ -3,7 +3,7 @@ name: deploy
 on:
   push:
     tags:
-      - "v*"
+      - "src/v*"
 
 jobs:
   deploy:
@@ -11,7 +11,7 @@ jobs:
     permissions:
       contents: write
     env:
-      NODE_VERSION: "22"
+      NODE_VERSION: "24"
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
@@ -50,10 +50,10 @@ jobs:
           publish_branch: dist/v0
           user_name: github-actions[bot]
           user_email: github-actions[bot]@users.noreply.github.com
-          tag_name: dist/${{ env.TAG }}
+          tag_name: ${{ env.TAG }}
           tag_message: "release ${{ github.ref_name }}"
 
-      - run: gh release create "dist/${TAG}" --notes "${CHANGELOG}"
+      - run: gh release create "${TAG}" --notes "${CHANGELOG}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CHANGELOG: "${{ steps.changelog.outputs.changes }}"
