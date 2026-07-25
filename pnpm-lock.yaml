@@ -18,7 +18,7 @@ importers:
         specifier: 10.0.1
         version: 10.0.1(eslint@10.6.0)
       '@types/node':
-        specifier: ^24
+        specifier: 24.13.3
         version: 24.13.3
       esbuild:
         specifier: 0.28.1
@@ -1305,8 +1305,8 @@ snapshots:
 
   '@typescript-eslint/project-service@8.62.1(typescript@6.0.3)':
     dependencies:
-      '@typescript-eslint/tsconfig-utils': 8.62.1(typescript@6.0.3)
-      '@typescript-eslint/types': 8.62.1
+      '@typescript-eslint/tsconfig-utils': 8.65.0(typescript@6.0.3)
+      '@typescript-eslint/types': 8.65.0
       debug: 4.4.3
       typescript: 6.0.3
     transitivePeerDependencies:
