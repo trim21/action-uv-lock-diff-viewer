@@ -2,8 +2,10 @@ import { Type as t } from "typebox";
 import { Value } from "typebox/value";
 import * as toml from "js-toml";
 
+const Package = t.Object({ name: t.String(), version: t.String() });
+
 const LockFile = t.Object({
-  package: t.Array(t.Object({ name: t.String(), version: t.String() })),
+  package: t.Array(Package),
 });
 
 function getPackages(lockFileContent: string): Map<string, string> {
@@ -24,7 +26,9 @@ export function diffLockFile(oldLock: string, newLock: string): string[] {
     newVersion: undefined | string;
   }> = [];
 
-  for (const pkg of new Set([...oldPackages.keys(), ...newPackages.keys()])) {
+  const names = new Set([...oldPackages.keys(), ...newPackages.keys()]);
+
+  for (const pkg of names) {
     const oldVersion = oldPackages.get(pkg);
     const newVersion = newPackages.get(pkg);
     if (newVersion === oldVersion) {
