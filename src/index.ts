@@ -23,6 +23,17 @@ async function main() {
 
   const pr = await octokit.rest.pulls.get({ owner, repo, pull_number });
 
+  // GitHub renders a pull request as the three-dot diff against the merge base of
+  // base and head. Diffing against the current base branch tip would render an
+  // empty table for a branch that is behind its base, while GitHub still shows
+  // the change on the pull request page.
+  const compare = await octokit.rest.repos.compareCommitsWithBasehead({
+    owner,
+    repo,
+    basehead: `${pr.data.base.label}...${pr.data.head.label}`,
+  });
+  const baseSha = compare.data.merge_base_commit.sha;
+
   const files = await octokit.paginate("GET /repos/{owner}/{repo}/pulls/{pull_number}/files", {
     owner: owner,
     repo: repo,
@@ -41,7 +52,7 @@ async function main() {
         octokit,
         pr.data.base.repo.owner.login,
         pr.data.base.repo.name,
-        pr.data.base.sha,
+        baseSha,
         file.filename,
       );
       const newLock = await getFile(
