@@ -33,7 +33,7 @@
     "husky": "9.1.7",
     "js-toml": "1.2.2",
     "minimatch": "10.2.6",
-    "prettier": "3.9.6",
+    "prettier": "3.9.9",
     "typescript": "6.0.3",
     "typescript-eslint": "8.65.0"
   },
