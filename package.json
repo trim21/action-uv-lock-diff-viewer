@@ -34,7 +34,7 @@
     "js-toml": "2.0.1",
     "minimatch": "10.2.6",
     "prettier": "3.9.9",
-    "typescript": "6.0.3",
+    "typescript": "7.0.2",
     "typescript-eslint": "8.71.0"
   },
   "packageManager": "pnpm@12.8.1"
