@@ -14,6 +14,8 @@ jobs:
       NODE_VERSION: "24"
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
       - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
       - name: Setup node
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
@@ -32,12 +34,16 @@ jobs:
 
       - run: echo "TAG=v$(cat package.json | jq .version -r)" >> $GITHUB_ENV
 
+      - run: |
+          echo "PREVIOUS_TAG=$(git describe --tags --abbrev=0 --match 'src/v*' HEAD^)" >> $GITHUB_ENV
+
       - name: Generate Changelog
         id: changelog
         uses: requarks/changelog-action@b78a3354a01f4a1affb484b9264b506a815c46b1 # v1.10.3
         with:
           token: ${{ github.token }}
-          tag: ${{ github.ref_name }}
+          fromTag: ${{ env.PREVIOUS_TAG }}
+          toTag: ${{ github.ref_name }}
           writeToFile: false
           restrictToTypes: feat,fix,revert
 
