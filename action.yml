@@ -1,5 +1,5 @@
-name: "setup/install python poetry"
-description: "install poetry on you OS"
+name: "uv.lock diff viewer"
+description: "Comment a markdown table of version changes for every uv.lock a pull request touches"
 author: "Trim21 <trim21.me@gmail.com>"
 branding:
   icon: chevron-down
