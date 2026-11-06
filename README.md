@@ -17,7 +17,7 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-      - uses: trim21/action-uv-lock-diff-viewer@master
+      - uses: trim21/action-uv-lock-diff-viewer@v0.0.3
 ```
 
 ![alt text](./docs/image.png)
