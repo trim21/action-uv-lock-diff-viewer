@@ -16,11 +16,13 @@ changes in every `uv.lock` the PR touches. See `README.md` and `docs/image.png`.
 
 ## Behavior worth knowing
 
-- Old and new lockfile contents are compared as a three-dot diff: the old side is fetched at the
-  merge base of base and head (`compareCommitsWithBasehead`), not at the base branch tip, so the
-  comment matches what GitHub shows on the PR page even for a stale branch.
-- The action is written for `pull_request_target` (see `README.md`); the event guard in
-  `src/index.ts` returns early for a plain `pull_request` event.
+- Old and new lockfile contents come from `raw.githubusercontent.com` at the commits `pulls.get`
+  reports: old at `base.sha` from `base.repo`, new at `head.sha` from `head.repo` (two different
+  repositories for a fork PR). The old side is the base branch tip, not the merge base, so a stale
+  branch shows base-branch changes that the PR page's three-dot diff hides.
+- The action is written for `pull_request_target` (see `README.md`). The guard in `src/index.ts`
+  accepts `pull_request` and `pull_request_target` and returns early for any other event; a fork PR
+  under plain `pull_request` gets a read-only token, so the comment cannot be posted.
 - When no lockfile matches, no comment is created.
 
 ## Commands

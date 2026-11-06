@@ -10,16 +10,21 @@ const lockFileMap: Record<string, (oldLock: string, newLock: string) => string[]
 };
 
 async function main() {
-  const token = core.getInput("token") || process.env.GITHUB_TOKEN;
-  const octokit = github.getOctokit(token);
-
-  if (!["pull_request", "pull_request_target"].indexOf(github.context.eventName)) {
+  if (!["pull_request", "pull_request_target"].includes(github.context.eventName)) {
     return;
   }
 
+  const pull_request = github.context.payload.pull_request;
+  if (!pull_request) {
+    return;
+  }
+
+  const token = core.getInput("token", { required: true });
+  const octokit = github.getOctokit(token);
+
   const owner = github.context.repo.owner;
   const repo = github.context.repo.repo;
-  const pull_number = github.context.payload.pull_request.number;
+  const pull_number = pull_request.number;
 
   const pr = await octokit.rest.pulls.get({ owner, repo, pull_number });
 
